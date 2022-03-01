@@ -1,71 +1,27 @@
-// DBとの接続
 package infrastructure
 
 import (
-    "github.com/ymktmk/Shift-Backend/interfaces/database"
-    "database/sql"
-    // "github.com/jinzhu/gorm"
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
+    "github.com/ymktmk/Shift-Backend/interfaces/controllers"
 )
 
-type SqlHandler struct {
-    Conn *sql.DB
-}
-
-func NewSqlHandler() *SqlHandler {
-    conn, err := sql.Open("mysql", "root:!Ymktmk09@tcp(localhost:3306)/golang?charset=utf8mb4")
-    if err != nil {
-        panic(err.Error)
-    }
-    sqlHandler := new(SqlHandler)
-    sqlHandler.Conn = conn
-    return sqlHandler
-}
-
-func (handler *SqlHandler) Execute(statement string, args ...interface{}) (database.Result, error) {
-    res := SqlResult{}
-    result, err := handler.Conn.Exec(statement, args...)
-    if err != nil {
-        return res, err
-    }
-    res.Result = result
-    return res, nil
-}
-
-func (handler *SqlHandler) Query(statement string, args ...interface{}) (database.Row, error) {
-    rows, err := handler.Conn.Query(statement, args...)
-    if err != nil {
-        return new(SqlRow), err
-    }
-    row := new(SqlRow)
-    row.Rows = rows
-    return row, nil
-}
-
-type SqlResult struct {
-    Result sql.Result
-}
-
-func (r SqlResult) LastInsertId() (int64, error) {
-    return r.Result.LastInsertId()
-}
-
-func (r SqlResult) RowsAffected() (int64, error) {
-    return r.Result.RowsAffected()
-}
-
-type SqlRow struct {
-    Rows *sql.Rows
-}
-
-func (r SqlRow) Scan(dest ...interface{}) error {
-    return r.Rows.Scan(dest...)
-}
-
-func (r SqlRow) Next() bool {
-    return r.Rows.Next()
-}
-
-func (r SqlRow) Close() error {
-    return r.Rows.Close()
+func Routing() *echo.Echo {
+	// user controller
+	userController := controllers.NewUserController(NewSqlHandler())
+	// echo instance
+    e := echo.New()
+    // middleware
+    e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+        AllowOrigins: []string{"http://localhost:3000"},
+        AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+        AllowMethods: []string{echo.GET,echo.POST},
+    }))
+    e.Use(FirebaseAuth)
+    // routing
+    // -H 'Authorization: Bearer XXXXXXX'
+	e.POST("/users/create", userController.CreateUser)
+	e.GET("/users/:id", userController.GetUser)
+    e.GET("/users",userController.GetAllUsers)
+	return e
 }
