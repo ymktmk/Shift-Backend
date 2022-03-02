@@ -12,6 +12,11 @@ https://qiita.com/so-heee/items/0cca93008eae635c642a
 Go言語でEchoを用いて認証付きWebアプリの作成
 https://qiita.com/x-color/items/24ff2491751f55e866cf
 
+## MySQL
+
+Sequel AceでMySQLに接続する
+https://qiita.com/ucan-lab/items/b1304eee2157dbef7774
+
 # 環境構築
 
 コピーして.envファイルに記述
