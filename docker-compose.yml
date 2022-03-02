@@ -10,6 +10,8 @@ services:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
             - "TZ=Asia/Tokyo"
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        cap_add:
+            - SYS_NICE
         volumes:
             - mysql_data:/var/lib/mysql
             - ./db/mysql.cnf:/etc/mysql/conf.d/mysql.cnf

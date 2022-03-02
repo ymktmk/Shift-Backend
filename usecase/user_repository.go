@@ -9,6 +9,7 @@ import (
 
 type UserRepository interface {
 	// SQLの実行メソッドをここに埋め込む
+	FindByEmail(email string) (user domain.User, err error) 
 	FindById(id int) (user domain.User, err error)
 	FindAll() (users domain.Users, err error)
 	Store(u domain.User) (user domain.User, err error)

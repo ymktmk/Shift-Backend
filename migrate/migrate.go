@@ -34,6 +34,7 @@ func main() {
 	
 	// migration
     conn.AutoMigrate(
+		// usersテーブル
         &domain.User{},
     )
 }

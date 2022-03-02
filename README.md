@@ -44,7 +44,7 @@ go run migrate/migrate.go
 認証付きは -H 'Authorization: Bearer XXXXXXX' をつけてリクエスト
 
 ```
-curl -X POST http://localhost:9000/users/create -H 'Content-Type: application/json' -d '{"name":"yyy"}'
+curl -X POST http://localhost:9000/signup -H 'Content-Type: application/json' -d '{"name": "tomoki", "email": "example@gmail.com", "password": "be3uiy31"}'
 ```
 
 ```
