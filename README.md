@@ -12,20 +12,35 @@ https://qiita.com/so-heee/items/0cca93008eae635c642a
 Go言語でEchoを用いて認証付きWebアプリの作成
 https://qiita.com/x-color/items/24ff2491751f55e866cf
 
+# 環境構築
+
+```
+docker-compose build
+```
+
+```
+docker-compose up -d
+```
+
+```
+docker exec -it shift bash
+```
+
+```
+go run migrate/migrate
+```
+
 ## エンドポイント
 認証付きは -H 'Authorization: Bearer XXXXXXX' をつけてリクエスト
 
-### Create
 ```
 curl -X POST http://localhost:9000/users/create -H 'Content-Type: application/json' -d '{"name":"yyy"}'
 ```
 
-### Show
 ```
 curl http://localhost:9000/users/1
 ```
 
-### Index
 ```
 curl http://localhost:9080/users
 ```
