@@ -14,6 +14,11 @@ https://qiita.com/x-color/items/24ff2491751f55e866cf
 
 # 環境構築
 
+コピーして.envファイルに記述
+```
+cp .env.example .env
+```
+
 ```
 docker-compose build
 ```
@@ -27,7 +32,7 @@ docker exec -it shift bash
 ```
 
 ```
-go run migrate/migrate
+go run migrate/migrate.go
 ```
 
 ## エンドポイント
