@@ -1,9 +1,11 @@
 package infrastructure
 
 import (
-    "github.com/ymktmk/Shift-Backend/interfaces/database"
-    "github.com/jinzhu/gorm"
+	"os"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
+	"github.com/joho/godotenv"
+	"github.com/ymktmk/Shift-Backend/interfaces/database"
 )
 
 type SqlHandler struct {
@@ -11,7 +13,16 @@ type SqlHandler struct {
 }
 
 func NewSqlHandler() database.SqlHandler {
-    conn, err := gorm.Open("mysql", "root:!Ymktmk09@tcp(localhost:3306)/golang?charset=utf8mb4")
+    err := godotenv.Load()
+	if err != nil {
+		panic(err.Error())
+	}
+    user := os.Getenv("MYSQL_USER")
+	password := os.Getenv("MYSQL_PASSWORD")
+	protcol := "tcp(" + os.Getenv("MYSQL_HOST") + ":" + os.Getenv("MYSQL_PORT") + ")"
+	name := os.Getenv("MYSQL_DATABASE") + "?charset=utf8&parseTime=true&loc=Local"
+	connect := user + ":" + password + "@" + protcol + "/" + name
+    conn, err := gorm.Open("mysql", connect)
     if err != nil {
         panic(err.Error)
     }

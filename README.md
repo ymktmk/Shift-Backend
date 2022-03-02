@@ -17,16 +17,16 @@ https://qiita.com/x-color/items/24ff2491751f55e866cf
 
 ### Create
 ```
-curl -X POST http://localhost:8080/users/create -H 'Content-Type: application/json' -d '{"name":"yyy"}'
+curl -X POST http://localhost:9000/users/create -H 'Content-Type: application/json' -d '{"name":"yyy"}'
 ```
 
 ### Show
 ```
-curl http://localhost:8080/users/1
+curl http://localhost:9000/users/1
 ```
 
 ### Index
 ```
-curl http://localhost:8080/users
+curl http://localhost:9080/users
 ```
 
