@@ -32,7 +32,7 @@ func (controller *UserController) SignUp(c echo.Context) (err error) {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	// バリデーション
-	// ユーザー登録処理
+	// ユーザー登録処理 → 同じメールアドレスでerr返ってくる
 	user, err := controller.Interactor.Add(*u)
     if err != nil {
 		return err

@@ -40,6 +40,12 @@ docker exec -it shift bash
 go run migrate/migrate.go
 ```
 
+## 開発中
+* 余力があったらホットリロードしたい
+```
+docker-compose exec app go run main.go
+```
+
 ## エンドポイント
 認証付きは -H 'Authorization: Bearer XXXXXXX' をつけてリクエスト
 

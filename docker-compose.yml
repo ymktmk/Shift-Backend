@@ -24,7 +24,6 @@ services:
         tty: true
         ports:
             - "9000:9000"
-        command: go run main.go
         volumes:
             - .:/go/src/work
         depends_on:
