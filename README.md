@@ -42,6 +42,8 @@ go run migrate/migrate.go
 
 ## 開発中
 * 余力があったらホットリロードしたい
+https://zenn.dev/tomi/articles/2020-10-14-go-docker
+
 ```
 docker-compose exec app go run main.go
 ```
@@ -50,7 +52,7 @@ docker-compose exec app go run main.go
 認証付きは -H 'Authorization: Bearer XXXXXXX' をつけてリクエスト
 
 ```
-curl -X POST http://localhost:9000/signup -H 'Content-Type: application/json' -d '{"name": "tomoki", "email": "example@gmail.com", "password": "be3uiy31"}'
+curl -X POST http://localhost:9000/user/create -H 'Content-Type: application/json' -d '{"name": "tomoki", "email": "example@gmail.com"}'
 ```
 
 ```

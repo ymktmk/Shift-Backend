@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"github.com/labstack/echo"
@@ -24,10 +23,9 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
     }
 }
 
-// 新規登録
-func (controller *UserController) SignUp(c echo.Context) (err error) {
+// DBにユーザーを保存
+func (controller *UserController) Create(c echo.Context) (err error) {
 	u := new(domain.User)
-	fmt.Println(u)
 	if err = c.Bind(&u); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
