@@ -52,7 +52,7 @@ docker-compose exec app go run main.go
 認証付きは -H 'Authorization: Bearer XXXXXXX' をつけてリクエスト
 
 ```
-curl -X POST http://localhost:9000/user/create -H 'Content-Type: application/json' -d '{"name": "tomoki", "email": "example@gmail.com"}'
+curl -X POST http://localhost:9000/user/create -H 'Content-Type: application/json' -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "example@gmail.com"}'
 ```
 
 ```
