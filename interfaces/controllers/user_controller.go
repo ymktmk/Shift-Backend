@@ -23,7 +23,6 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
     }
 }
 
-// DBにユーザーを保存
 func (controller *UserController) Create(c echo.Context) (err error) {
 	u := new(domain.User)
 	if err = c.Bind(&u); err != nil {
@@ -38,17 +37,9 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, user)
 }
 
-func (controller *UserController) GetAllUsers(c echo.Context) (err error) {
-	users, err := controller.Interactor.Users()
-    if err != nil {
-		return err
-	}
-	return c.JSON(http.StatusOK, users)
-}
-
 func (controller *UserController) GetUser(c echo.Context) (err error) {
-	uid, _ := strconv.Atoi(c.Param("uid"))
-	user, err := controller.Interactor.UserByUid(uid)
+	id, _ := strconv.Atoi(c.Param("id"))
+	user, err := controller.Interactor.UserById(id)
 	if err != nil {
 		return err
 	}

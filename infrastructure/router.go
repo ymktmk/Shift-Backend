@@ -12,6 +12,6 @@ func Routing() *echo.Echo {
 	// g.Use(FirebaseAuth)
 	e.POST("/users/create", userController.Create)
 	// e.POST("/users/update", userController.Update)
-	// e.GET("/users/:uid", userController.GetUser)
+	e.GET("/users/:id", userController.GetUser)
 	return e
 }

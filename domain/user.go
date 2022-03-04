@@ -7,9 +7,8 @@ type User struct {
     UID  string   `gorm:"size:28;not null;unique" json:"uid"`
     Name  string `gorm:"size:255;not null" json:"name,omitempty"`
     Email string `gorm:"size:255;not null;unique" json:"email,omitempty"`
-    // CompanyID int `gorm:"not null" json:"company_id"`
-    // Company Company
-    // Password  string `gorm:"size:255;not null" json:"password,omitempty"`
+    CompanyID int `gorm:"not null" json:"company_id"`
+    Company Company `gorm:"foreignKey:CompanyID"`
 }
 
 type Users []User

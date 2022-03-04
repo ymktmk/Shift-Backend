@@ -1,22 +1,26 @@
 // User関連のSQL実行のコードを書く
 package database
 
-import "github.com/ymktmk/Shift-Backend/domain"
+import (
+	"github.com/ymktmk/Shift-Backend/domain"
+)
 
 // ここで再定義して使う
 type UserRepository struct {
     SqlHandler
 }
 
-func (repo *UserRepository) FindByUid(id int) (user domain.User, err error) {
+// ユーザー情報を取得
+func (repo *UserRepository) FindById(id int) (user domain.User, err error) {
 	if err = repo.Find(&user, id).Error; err != nil {
 		return
 	}
+	repo.Model(&user).Association("Company").Find(&user.Company)
 	return
 }
 
-func (repo *UserRepository) FindAll() (users domain.Users, err error) {
-	if err = repo.Find(&users).Error; err != nil {
+func (repo *UserRepository) FindByUid(uid string) (user domain.User, err error) {
+	if err = repo.Find(&user, uid).Error; err != nil {
 		return
 	}
 	return
