@@ -17,7 +17,7 @@ https://qiita.com/x-color/items/24ff2491751f55e866cf
 Sequel AceでMySQLに接続する
 https://qiita.com/ucan-lab/items/b1304eee2157dbef7774
 
-# 環境構築
+## 環境構築
 
 コピーして.envファイルに記述
 ```
@@ -56,6 +56,12 @@ docker-compose exec app go run main.go
 curl -X POST http://localhost:9000/users/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "Company": {"name": "yy_company"}}'
+```
+
+```
+curl -X POST http://localhost:9000/users/update \
+-H 'Content-Type: application/json' \
+-d '{"name": "tomoki", "Company": {"name": "tt_company"}}'
 ```
 
 ```

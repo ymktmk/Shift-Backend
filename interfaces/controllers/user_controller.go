@@ -23,6 +23,10 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
     }
 }
 
+func (controller *UserController) Print(c echo.Context) (err error) {
+	return c.JSON(http.StatusOK,c.Get("key"))
+}
+
 func (controller *UserController) Create(c echo.Context) (err error) {
 	u := new(domain.User)
 	if err = c.Bind(&u); err != nil {
@@ -37,10 +41,22 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, user)
 }
 
-func (controller *UserController) GetUser(c echo.Context) (err error) {
+func (controller *UserController) Show(c echo.Context) (err error) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	user, err := controller.Interactor.UserById(id)
 	if err != nil {
+		return err
+	}
+	return c.JSON(http.StatusOK, user)
+}
+
+func (controller *UserController) Update(c echo.Context) (err error) {
+	u := new(domain.User)
+	if err = c.Bind(&u); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	user, err := controller.Interactor.Update(*u)
+    if err != nil {
 		return err
 	}
 	return c.JSON(http.StatusOK, user)
