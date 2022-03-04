@@ -51,10 +51,11 @@ docker-compose exec app go run main.go
 ## エンドポイント
 認証付きは -H 'Authorization: Bearer xxxxxxxxxx' をつけてリクエスト
 
+* Firebase Authmのuid、名前、メールアドレス、会社名
 ```
 curl -X POST http://localhost:9000/users/create \
 -H 'Content-Type: application/json' \
--d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxx3","name": "tomoki", "email": "tt@gmail.com", "Company": {"name": "yy_company"}}'
+-d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "Company": {"name": "yy_company"}}'
 ```
 
 ```
