@@ -10,32 +10,19 @@ type UserInteractor struct {
     UserRepository UserRepository
 }
 
-
-// func (interactor *UserInteractor) Add(u domain.User) (domain.User, error) {
-//     // 同じメールアドレスがいないかチェック
-//     // パスワードハッシュ化
-//     hashPassword, _ := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
-//     u.Password = string(hashPassword)
-//     // メールアドレス同じ人がいたらエラー
-//     u, err := interactor.UserRepository.Store(u)
-//     user, err := interactor.UserRepository.FindById(u.ID)
-//     return user, err
-// }
-
 func (interactor *UserInteractor) Add(u domain.User) (domain.User, error) {
-    
     u, err := interactor.UserRepository.Store(u)
-    user, err := interactor.UserRepository.FindByUid(int(u.Model.ID))
+    user, err := interactor.UserRepository.FindById(int(u.Model.ID))
     return user, err
 }
 
-func (interactor *UserInteractor) Users() (domain.Users, error) {
-    users, err := interactor.UserRepository.FindAll()
-    return users, err
+func (interactor *UserInteractor) UserById(id int) (domain.User, error) {
+    user, err := interactor.UserRepository.FindById(id)
+    return user, err
 }
 
-func (interactor *UserInteractor) UserByUid(id int) (domain.User, error) {
-    user, err := interactor.UserRepository.FindByUid(id)
+func (interactor *UserInteractor) UserByUid(uid string) (domain.User, error) {
+    user, err := interactor.UserRepository.FindByUid(uid)
     return user, err
 }
 
