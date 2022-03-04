@@ -47,8 +47,8 @@ func (controller *UserController) GetAllUsers(c echo.Context) (err error) {
 }
 
 func (controller *UserController) GetUser(c echo.Context) (err error) {
-	id, _ := strconv.Atoi(c.Param("id"))
-	user, err := controller.Interactor.UserById(id)
+	uid, _ := strconv.Atoi(c.Param("uid"))
+	user, err := controller.Interactor.UserByUid(uid)
 	if err != nil {
 		return err
 	}

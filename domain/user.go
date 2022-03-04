@@ -1,18 +1,15 @@
 package domain
 
-import (
-    "time"
-)
+import "github.com/ymktmk/Shift-Backend/domain/gorm"
 
 type User struct {
-    ID   int  `gorm:"primary_key" json:"id"`
+    gorm.Model
     UID  string   `gorm:"size:28;not null;unique" json:"uid"`
     Name  string `gorm:"size:255;not null" json:"name,omitempty"`
     Email string `gorm:"size:255;not null;unique" json:"email,omitempty"`
+    // CompanyID int `gorm:"not null" json:"company_id"`
+    // Company Company
     // Password  string `gorm:"size:255;not null" json:"password,omitempty"`
-    CreatedAt *time.Time  `json:"created_at"`
-    UpdatedAt *time.Time  `json:"updated_at"`
-    DeletedAt *time.Time  `json:"deleted_at"`
 }
 
 type Users []User

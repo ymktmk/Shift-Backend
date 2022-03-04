@@ -8,7 +8,7 @@ type UserRepository struct {
     SqlHandler
 }
 
-func (repo *UserRepository) FindById(id int) (user domain.User, err error) {
+func (repo *UserRepository) FindByUid(id int) (user domain.User, err error) {
 	if err = repo.Find(&user, id).Error; err != nil {
 		return
 	}

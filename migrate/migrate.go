@@ -31,10 +31,15 @@ func main() {
     if err := conn.DB().Ping(); err != nil {
         panic(err)
 	}
-	
-	// migration
+	// drop & migration
+	conn.DropTable(
+		&domain.User{}, 
+		&domain.Company{},
+	)
+	// conn.AutoMigrate(&domain.Company{})
     conn.AutoMigrate(
-		// usersテーブル
-        &domain.User{},
-    )
+		&domain.User{},
+		// &domain.Company{},
+	)
+	// .AddForeignKey("company_id", "campanies(id)", "RESTRICT", "RESTRICT")
 }
