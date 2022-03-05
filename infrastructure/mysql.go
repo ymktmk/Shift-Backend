@@ -66,3 +66,7 @@ func (handler *SqlHandler) Joins(query string, args ...interface{}) *gorm.DB {
 func (handler *SqlHandler) Model(value interface{}) *gorm.DB {
     return handler.Conn.Model(value)
 }
+
+func (handler *SqlHandler) Preload(query string, args ...interface{}) *gorm.DB {
+    return handler.Conn.Preload(query, args...)
+}

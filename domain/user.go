@@ -2,6 +2,7 @@ package domain
 
 import "github.com/ymktmk/Shift-Backend/domain/gorm"
 
+// フィールドを完全に無視 `json:"-"`
 type User struct {
     gorm.Model
     UID  string   `gorm:"size:28;not null;unique" json:"uid,omitempty" validate:"required"`
@@ -11,4 +12,4 @@ type User struct {
     Company Company `gorm:"foreignKey:CompanyID" json:"company,omitempty"`
 }
 
-type Users []User 
+type Users []User

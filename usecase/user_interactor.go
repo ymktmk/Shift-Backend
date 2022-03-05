@@ -27,8 +27,8 @@ func (interactor *UserInteractor) Update(u domain.User) (user domain.User, err e
     return user, err
 }
 
-func (interactor *UserInteractor) UserById(id int) (user domain.User, err error) {
-    user, err = interactor.UserRepository.FindById(id)
+func (interactor *UserInteractor) UserById(userId int) (user domain.User, err error) {
+    user, err = interactor.UserRepository.FindById(userId)
     return user, err
 }
 

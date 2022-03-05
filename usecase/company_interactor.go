@@ -12,7 +12,7 @@ func (interactor *CompanyInteractor) UserByUid(uid string) (user domain.User, er
 }
 
 // 会社の人たち
-func (interactor *CompanyInteractor) Users(id int) (users []domain.User, err error) {
-    users, err = interactor.CompanyRepository.FindUsersById(id)
+func (interactor *CompanyInteractor) Users(companyId int) (users []domain.User, err error) {
+    users, err = interactor.CompanyRepository.FindUsersById(companyId)
     return users, err
 }

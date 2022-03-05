@@ -47,8 +47,8 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 }
 
 func (controller *UserController) Show(c echo.Context) (err error) {
-	id, _ := strconv.Atoi(c.Param("id"))
-	user, err := controller.Interactor.UserById(id)
+	userId, _ := strconv.Atoi(c.Param("id"))
+	user, err := controller.Interactor.UserById(userId)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}

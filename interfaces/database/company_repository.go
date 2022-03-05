@@ -15,8 +15,8 @@ func (repo *CompanyRepository) FindByUid(uid string) (user domain.User, err erro
 	return
 }
 
-func (repo *CompanyRepository) FindUsersById(id int) (users domain.Users, err error) {
-	if err = repo.Joins("Company").Where("company_id=?", id).Find(&users).Error; err != nil {
+func (repo *CompanyRepository) FindUsersById(companyId int) (users domain.Users, err error) {
+	if err = repo.Joins("Company").Where("company_id=?", companyId).Find(&users).Error; err != nil {
 		return
 	}
 	return

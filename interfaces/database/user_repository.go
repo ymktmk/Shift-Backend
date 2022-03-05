@@ -10,8 +10,8 @@ type UserRepository struct {
     SqlHandler
 }
 
-func (repo *UserRepository) FindById(id int) (user domain.User, err error) {
-	if err = repo.Joins("Company").Find(&user, id).Error; err != nil {
+func (repo *UserRepository) FindById(userId int) (user domain.User, err error) {
+	if err = repo.Joins("Company").Find(&user, userId).Error; err != nil {
 		return
 	}
 	return

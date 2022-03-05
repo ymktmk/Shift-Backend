@@ -13,6 +13,7 @@ func Routing() *echo.Echo {
 	g.Use(verifyFirebaseToken)
 	g.GET("/user",userController.Print)
 	e.POST("/users/create", userController.Create)
+	// ユーザー情報更新
 	e.POST("/users/update", userController.Update)
 	e.GET("/users/:id", userController.Show)
 	e.GET("/company/users", companyController.Show)
