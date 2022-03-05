@@ -31,7 +31,7 @@ func (controller *UserController) Print(c echo.Context) (err error) {
 
 func (controller *UserController) Create(c echo.Context) (err error) {
 	u := new(domain.User)
-	if err = c.Bind(&u); err != nil {
+	if err = c.Bind(u); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	// バリデーション
@@ -39,6 +39,7 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	// 同じメールアドレス、uidでerr返ってくる → 同じものを挿入したときidは進む
+	// ポインタから値に変える
 	user, err := controller.Interactor.Add(*u)
     if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())

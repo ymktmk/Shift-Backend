@@ -32,12 +32,10 @@ docker-compose build
 docker-compose up -d
 ```
 
-```
-docker exec -it shift bash
-```
+## マイグレーション
 
 ```
-go run migrate/migrate.go
+docker exec -it shift go run migrate/migrate.go
 ```
 
 ## 開発中

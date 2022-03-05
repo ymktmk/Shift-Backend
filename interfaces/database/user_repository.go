@@ -25,7 +25,7 @@ func (repo *UserRepository) FindByEmail(email string) (user domain.User, err err
 }
 
 func (repo *UserRepository) Store(u domain.User) (user domain.User, err error) {
-	if err = repo.Create(&u).Error; err != nil {
+	if err = repo.Create(u).Error; err != nil {
 		return
 	}
 	user = u
