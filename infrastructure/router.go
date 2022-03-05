@@ -11,7 +11,6 @@ func Routing() *echo.Echo {
     g := e.Group("/admin")
 	g.Use(verifyFirebaseToken)
 	g.GET("/user",userController.Print)
-
 	e.POST("/users/create", userController.Create)
 	e.POST("/users/update", userController.Update)
 	e.GET("/users/:id", userController.Show)

@@ -10,12 +10,14 @@ type UserRepository struct {
     SqlHandler
 }
 
-// ユーザー情報を取得
+// ユーザー情報に絡む全てを取得
 func (repo *UserRepository) FindById(id int) (user domain.User, err error) {
 	if err = repo.Find(&user, id).Error; err != nil {
 		return
 	}
-	repo.Model(&user).Association("Company").Find(&user.Company)
+	if err = repo.Model(&user).Association("Company").Find(&user.Company).Error; err != nil {
+		return
+	}
 	return
 }
 

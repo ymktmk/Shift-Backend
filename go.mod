@@ -43,4 +43,5 @@ require (
 	google.golang.org/genproto v0.0.0-20210222152913-aa3ee6e6a81c // indirect
 	google.golang.org/grpc v1.35.0 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
+	gopkg.in/go-playground/validator.v9 v9.31.0 // indirect
 )

@@ -3,10 +3,12 @@ package controllers
 import (
 	"net/http"
 	"strconv"
+
 	"github.com/labstack/echo"
 	"github.com/ymktmk/Shift-Backend/domain"
 	"github.com/ymktmk/Shift-Backend/interfaces/database"
 	"github.com/ymktmk/Shift-Backend/usecase"
+	"gopkg.in/go-playground/validator.v9"
 )
 
 type UserController struct {
@@ -33,10 +35,13 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	// バリデーション
-	// ユーザー登録処理 → 同じメールアドレスでerr返ってくる
+	if err = validator.New().Struct(u); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	// 同じメールアドレス、uidでerr返ってくる → 同じものを挿入したときidは進む
 	user, err := controller.Interactor.Add(*u)
     if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, user)
 }
@@ -45,7 +50,7 @@ func (controller *UserController) Show(c echo.Context) (err error) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	user, err := controller.Interactor.UserById(id)
 	if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, user)
 }
@@ -57,7 +62,7 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 	}
 	user, err := controller.Interactor.Update(*u)
     if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, user)
 }
