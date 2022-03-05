@@ -12,10 +12,11 @@ type UserRepository struct {
 
 // ユーザー情報に絡む全てを取得
 func (repo *UserRepository) FindById(id int) (user domain.User, err error) {
+	// ユーザー取得
 	if err = repo.Find(&user, id).Error; err != nil {
 		return
 	}
-	if err = repo.Model(&user).Association("Company").Find(&user.Company).Error; err != nil {
+	if err = repo.Joins("Company").Where("company_id=?", &user.CompanyID).Find(&user).Error; err != nil {
 		return
 	}
 	return

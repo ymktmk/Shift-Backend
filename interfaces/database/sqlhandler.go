@@ -2,7 +2,7 @@
 // 登録しておく
 package database
 
-import "github.com/jinzhu/gorm"
+import "gorm.io/gorm"
 
 type SqlHandler interface {
 	Exec(string, ...interface{}) *gorm.DB

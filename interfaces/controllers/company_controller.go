@@ -30,5 +30,9 @@ func (controller *CompanyController) Show(c echo.Context) (err error) {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
     // 会社IDからusers取得
-	return c.JSON(http.StatusOK, user)
+    users, err := controller.Interactor.Users(user.CompanyID)
+    if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	return c.JSON(http.StatusOK, users)
 }

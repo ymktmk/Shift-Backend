@@ -63,6 +63,7 @@ curl -X POST http://localhost:9000/users/create \
 curl http://localhost:9000/users/1
 ```
 
+リクエストを送信した人の会社に属している人たちを取得
 ```
 curl http://localhost:9000/company/users
 ```

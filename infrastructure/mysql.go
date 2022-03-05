@@ -2,10 +2,10 @@ package infrastructure
 
 import (
 	"os"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
+	"gorm.io/driver/mysql"
 	"github.com/joho/godotenv"
 	"github.com/ymktmk/Shift-Backend/interfaces/database"
+	"gorm.io/gorm"
 )
 
 type SqlHandler struct {
@@ -17,12 +17,8 @@ func NewSqlHandler() database.SqlHandler {
 	if err != nil {
 		panic(err.Error())
 	}
-    user := os.Getenv("MYSQL_USER")
-	password := os.Getenv("MYSQL_PASSWORD")
-	protcol := "tcp(" + os.Getenv("MYSQL_HOST") + ":" + os.Getenv("MYSQL_PORT") + ")"
-	name := os.Getenv("MYSQL_DATABASE") + "?charset=utf8&parseTime=true&loc=Local"
-	connect := user + ":" + password + "@" + protcol + "/" + name
-    conn, err := gorm.Open("mysql", connect)
+    dsn := os.Getenv(("MYSQL_USER")) +":"+os.Getenv(("MYSQL_PASSWORD")) +"@tcp("+ os.Getenv(("MYSQL_HOST")) +":" +os.Getenv(("MYSQL_PORT"))+ ")/"+ os.Getenv(("MYSQL_DATABASE")) +"?charset=utf8mb4&parseTime=True&loc=Local"
+    conn, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
     if err != nil {
         panic(err.Error)
     }

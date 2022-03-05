@@ -10,3 +10,9 @@ func (interactor *CompanyInteractor) UserByUid(uid string) (user domain.User, er
     user, err = interactor.CompanyRepository.FindByUid(uid)
     return user, err
 }
+
+// 会社の人たち
+func (interactor *CompanyInteractor) Users(id int) (users []domain.User, err error) {
+    users, err = interactor.CompanyRepository.FindUsersById(id)
+    return users, err
+}
