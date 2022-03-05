@@ -14,6 +14,6 @@ func Routing() *echo.Echo {
 	e.POST("/users/create", userController.Create)
 	e.POST("/users/update", userController.Update)
 	e.GET("/users/:id", userController.Show)
-	
+	// e.GET("/company/users", user)
 	return e
 }
