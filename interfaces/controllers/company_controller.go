@@ -22,6 +22,13 @@ func NewCompanyController(sqlHandler database.SqlHandler) *CompanyController {
     }
 }
 
-func (controller *CompanyController) Print(c echo.Context) (err error) {
-	return c.JSON(http.StatusOK,"OK")
+// 会社に所属している人を取得
+func (controller *CompanyController) Show(c echo.Context) (err error) {
+    // uidからその人の会社IDを取得
+    user, err := controller.Interactor.UserByUid("xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+    // 会社IDからusers取得
+	return c.JSON(http.StatusOK, user)
 }

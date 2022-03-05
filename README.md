@@ -62,3 +62,7 @@ curl -X POST http://localhost:9000/users/create \
 ```
 curl http://localhost:9000/users/1
 ```
+
+```
+curl http://localhost:9000/company/users
+```
