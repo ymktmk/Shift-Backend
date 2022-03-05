@@ -56,7 +56,7 @@ docker-compose exec app go run main.go
 ```
 curl -X POST http://localhost:9000/users/create \
 -H 'Content-Type: application/json' \
--d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "Company": {"name": "yy_company"}}'
+-d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "company": {"name": "yy_company"}}'
 ```
 
 ```
