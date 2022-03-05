@@ -11,9 +11,6 @@ type UserRepository struct {
 }
 
 func (repo *UserRepository) FindById(id int) (user domain.User, err error) {
-	// if err = repo.Find(&user, id).Error; err != nil {
-	// 	return
-	// }
 	if err = repo.Joins("Company").Find(&user, id).Error; err != nil {
 		return
 	}
