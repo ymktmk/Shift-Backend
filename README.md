@@ -52,16 +52,16 @@ docker-compose exec app go run main.go
 * Firebase Authmのuid、名前、メールアドレス、会社名
 
 ```
-curl -X POST http://localhost:9000/users/create \
+curl -X POST http://localhost:9000/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "company": {"name": "yy_company"}}'
 ```
 
 ```
-curl http://localhost:9000/users/24
+curl http://localhost:9000/api/user
 ```
 
 リクエストを送信した人の会社に属している人たちを取得
 ```
-curl http://localhost:9000/company/users
+curl http://localhost:9000/api/company/users
 ```

@@ -9,13 +9,13 @@ func Routing() *echo.Echo {
 	userController := controllers.NewUserController(NewSqlHandler())
 	companyController := controllers.NewCompanyController(NewSqlHandler())
 	e := echo.New()
-    g := e.Group("/admin")
+	e.POST("/user/create", userController.Create)
+    g := e.Group("/api")
 	g.Use(verifyFirebaseToken)
-	g.GET("/user",userController.Print)
-	e.POST("/users/create", userController.Create)
-	// ユーザー情報更新
-	e.PUT("/users/update", userController.Update)
-	e.GET("/users/:id", userController.Show)
-	e.GET("/company/users", companyController.Show)
+	
+	e.PUT("/user/update", userController.Update)
+	// 認証つきapi
+	g.GET("/user", userController.Show)
+	g.GET("/company/users", companyController.Show)
 	return e
 }

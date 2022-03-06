@@ -2,8 +2,6 @@
 package usecase
 
 import (
-	"fmt"
-
 	"github.com/ymktmk/Shift-Backend/domain"
 )
 
@@ -12,7 +10,6 @@ type UserInteractor struct {
 }
 
 func (interactor *UserInteractor) Add(u *domain.User) (user *domain.User, err error) {
-    fmt.Printf("%p\n", u)
     user, err = interactor.UserRepository.Store(u)
     if err != nil {
         return
@@ -20,14 +17,19 @@ func (interactor *UserInteractor) Add(u *domain.User) (user *domain.User, err er
     return
 }
 
-func (interactor *UserInteractor) Update(u domain.User) (user domain.User, err error) {
-    u, err = interactor.UserRepository.Update(u)
-    user, err = interactor.UserRepository.FindById(int(u.Model.ID))
+func (interactor *UserInteractor) Update(u *domain.User) (user *domain.User, err error) {
+    user, err = interactor.UserRepository.Update(u)
+    // user, err = interactor.UserRepository.FindById(int(u.Model.ID))
     return
 }
 
-func (interactor *UserInteractor) UserById(userId int) (user domain.User, err error) {
+func (interactor *UserInteractor) UserById(userId int) (user *domain.User, err error) {
     user, err = interactor.UserRepository.FindById(userId)
+    return
+}
+
+func (interactor *UserInteractor) UserByUid(uid string) (user *domain.User, err error) {
+    user, err = interactor.UserRepository.FindByUid(uid)
     return
 }
 

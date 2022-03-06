@@ -24,9 +24,8 @@ func verifyFirebaseToken(next echo.HandlerFunc) echo.HandlerFunc {
 		// idToken := strings.Replace(authHeader, "Bearer ", "", 1)
 		// token, err := auth.VerifyIDToken(ctx, idToken)
 		// log.Printf("firebase uid: %v\n", token.UID)
-
 		// リクエストが来た際にuserIDなどをcontextに保存し、後続の処理で使うとき
-		c.Set("key","uid")
+		c.Set("uid","xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 		if err := next(c); err != nil {
 			c.Error(err)
 		}

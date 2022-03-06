@@ -1,10 +1,7 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
-	"strconv"
-
 	"github.com/labstack/echo"
 	"github.com/ymktmk/Shift-Backend/domain"
 	"github.com/ymktmk/Shift-Backend/interfaces/database"
@@ -26,14 +23,9 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
     }
 }
 
-func (controller *UserController) Print(c echo.Context) (err error) {
-	return c.JSON(http.StatusOK,c.Get("key"))
-}
-
+// OK
 func (controller *UserController) Create(c echo.Context) (err error) {
 	u := new(domain.User)
-	// ポインタアドレス
-	fmt.Printf("%p\n", u)
 	if err = c.Bind(u); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
@@ -41,7 +33,6 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	// 同じメールアドレス、uidでerr返ってくる → 同じものを挿入したときidは進む
-	// ポインタから値に変える
 	user, err := controller.Interactor.Add(u)
     if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -49,22 +40,24 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, user)
 }
 
-func (controller *UserController) Show(c echo.Context) (err error) {
-	userId, _ := strconv.Atoi(c.Param("id"))
-	user, err := controller.Interactor.UserById(userId)
-	if err != nil {
+func (controller *UserController) Update(c echo.Context) (err error) {
+	u := new(domain.User)
+	if err = c.Bind(u); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	user, err := controller.Interactor.Update(u)
+    if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, user)
 }
 
-func (controller *UserController) Update(c echo.Context) (err error) {
-	u := new(domain.User)
-	if err = c.Bind(&u); err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-	user, err := controller.Interactor.Update(*u)
-    if err != nil {
+// OK
+func (controller *UserController) Show(c echo.Context) (err error) {
+	i := c.Get("uid")
+    uid := i.(string)
+	user, err := controller.Interactor.UserByUid(uid)
+	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, user)

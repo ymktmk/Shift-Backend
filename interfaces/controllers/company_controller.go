@@ -22,14 +22,14 @@ func NewCompanyController(sqlHandler database.SqlHandler) *CompanyController {
     }
 }
 
-// 会社に所属している人を取得
+// 会社の人を取得する
 func (controller *CompanyController) Show(c echo.Context) (err error) {
-    // uidからその人の会社IDを取得 → company情報は取得しない
-    user, err := controller.Interactor.UserByUid("xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    i := c.Get("uid")
+    uid := i.(string)
+    user, err := controller.Interactor.UserByUid(uid)
     if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
-    // 会社IDからusers取得
     users, err := controller.Interactor.Users(user.CompanyID)
     if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
