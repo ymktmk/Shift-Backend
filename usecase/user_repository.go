@@ -11,7 +11,7 @@ type UserRepository interface {
 	// SQLの実行メソッドをここに埋め込む
 	FindByEmail(email string) (user domain.User, err error)
 	FindById(userId int) (user domain.User, err error)
-	Store(u domain.User) (user domain.User, err error)
+	Store(u *domain.User) (user *domain.User, err error)
 	Update(u domain.User) (user domain.User, err error)
 	DeleteById(user domain.User) (err error)
 }

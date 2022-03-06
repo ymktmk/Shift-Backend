@@ -24,7 +24,8 @@ func (repo *UserRepository) FindByEmail(email string) (user domain.User, err err
 	return
 }
 
-func (repo *UserRepository) Store(u domain.User) (user domain.User, err error) {
+func (repo *UserRepository) Store(u *domain.User) (user *domain.User, err error) {
+	// ポインタを渡す
 	if err = repo.Create(u).Error; err != nil {
 		return
 	}

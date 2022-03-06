@@ -2,6 +2,8 @@
 package usecase
 
 import (
+	"fmt"
+
 	"github.com/ymktmk/Shift-Backend/domain"
 )
 
@@ -9,12 +11,9 @@ type UserInteractor struct {
     UserRepository UserRepository
 }
 
-func (interactor *UserInteractor) Add(u domain.User) (user domain.User, err error) {
-    u, err = interactor.UserRepository.Store(u)
-    if err != nil {
-        return
-    }
-    user, err = interactor.UserRepository.FindById(int(u.Model.ID))
+func (interactor *UserInteractor) Add(u *domain.User) (user *domain.User, err error) {
+    fmt.Printf("%p\n", u)
+    user, err = interactor.UserRepository.Store(u)
     if err != nil {
         return
     }
