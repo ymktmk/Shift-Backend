@@ -1,7 +1,9 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
+
 	"github.com/labstack/echo"
 	"github.com/ymktmk/Shift-Backend/domain"
 	"github.com/ymktmk/Shift-Backend/interfaces/database"
@@ -23,7 +25,6 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
     }
 }
 
-// OK
 func (controller *UserController) Create(c echo.Context) (err error) {
 	u := new(domain.User)
 	if err = c.Bind(u); err != nil {
@@ -41,21 +42,30 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 }
 
 func (controller *UserController) Update(c echo.Context) (err error) {
-	u := new(domain.User)
-	if err = c.Bind(u); err != nil {
+	uid := c.Get("uid").(string)
+	// Jsonから構造体に変換
+	uur := new(domain.UserUpdateRequest)
+	if err = c.Bind(uur); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
-	user, err := controller.Interactor.Update(u)
+	fmt.Println(uur)
+	// バリデーション
+	if err = validator.New().Struct(uur); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	// DTOをUserのEntityに変換
+	u := domain.User{Name: uur.Name}
+	user, err := controller.Interactor.Update(uid, &u)
     if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
+	// レスポンス
+	// resopnse := domain.UserUpdateResponse{UID: user.UID, Name: user.Name, Email: user.Email}
 	return c.JSON(http.StatusOK, user)
 }
 
-// OK
 func (controller *UserController) Show(c echo.Context) (err error) {
-	i := c.Get("uid")
-    uid := i.(string)
+	uid := c.Get("uid").(string)
 	user, err := controller.Interactor.UserByUid(uid)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())

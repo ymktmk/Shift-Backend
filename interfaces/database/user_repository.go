@@ -1,6 +1,8 @@
 package database
 
 import (
+	"fmt"
+
 	"github.com/ymktmk/Shift-Backend/domain"
 )
 
@@ -16,11 +18,12 @@ func (repo *UserRepository) Store(u *domain.User) (user *domain.User, err error)
 	return
 }
 
-func (repo *UserRepository) Update(u *domain.User) (user *domain.User, err error) {
-	if err = repo.Save(u).Error; err != nil {
+func (repo *UserRepository) Update(uid string, u *domain.User) (user *domain.User, err error) {
+	if err = repo.Model(&user).Where("uid=?", uid).Update("name", u.Name).Error; err != nil {
 		return
 	}
 	user = u
+	fmt.Println(user)
 	return
 }
 
@@ -30,8 +33,6 @@ func (repo *UserRepository) FindByUid(uid string) (user *domain.User, err error)
 	}
 	return
 }
-
-// 使っていない
 
 func (repo *UserRepository) FindById(userId int) (user *domain.User, err error) {
 	if err = repo.Joins("Company").Find(&user, userId).Error; err != nil {

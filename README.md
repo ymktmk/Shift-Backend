@@ -47,21 +47,28 @@ docker-compose exec app go run main.go
 ```
 
 ## エンドポイント
-認証付きは -H 'Authorization: Bearer xxxxxxxxxx' をつけてリクエスト
+認証付きは -H 'Authorization: Bearer xxxxxxxxxx' をつけてリクエストする。Firebase Authmのuid、名前、メールアドレス、会社名
 
-* Firebase Authmのuid、名前、メールアドレス、会社名
-
+* ユーザーを作成する
 ```
 curl -X POST http://localhost:9000/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "company": {"name": "yy_company"}}'
 ```
 
+* リクエストを送信した人のユーザー情報
 ```
 curl http://localhost:9000/api/user
 ```
 
-リクエストを送信した人の会社に属している人たちを取得
+* リクエストした人のユーザー情報を更新する
+```
+curl -X PUT http://localhost:9000/api/user/update \
+-H 'Content-Type: application/json' \
+-d '{"name": "zzzzz"}'
+```
+
+* リクエストを送信した人の会社に属している人たちを取得
 ```
 curl http://localhost:9000/api/company/users
 ```

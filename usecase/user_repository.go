@@ -10,7 +10,7 @@ import (
 type UserRepository interface {
 	// SQLの実行メソッドをここに埋め込む
 	Store(u *domain.User) (user *domain.User, err error)
-	Update(u *domain.User) (user *domain.User, err error)
+	Update(uid string, u *domain.User) (user *domain.User, err error)
 	FindByUid(uid string) (user *domain.User, err error)
 	FindByEmail(email string) (user domain.User, err error)
 	FindById(userId int) (user *domain.User, err error)

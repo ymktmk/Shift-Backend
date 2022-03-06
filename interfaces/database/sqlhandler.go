@@ -16,4 +16,5 @@ type SqlHandler interface {
 	Joins(query string, args ...interface{}) *gorm.DB
 	Model(value interface{}) *gorm.DB
 	Preload(query string, args ...interface{}) *gorm.DB
+	Table(query string, args ...interface{}) *gorm.DB
 }

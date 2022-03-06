@@ -17,9 +17,8 @@ func (interactor *UserInteractor) Add(u *domain.User) (user *domain.User, err er
     return
 }
 
-func (interactor *UserInteractor) Update(u *domain.User) (user *domain.User, err error) {
-    user, err = interactor.UserRepository.Update(u)
-    // user, err = interactor.UserRepository.FindById(int(u.Model.ID))
+func (interactor *UserInteractor) Update(uid string, u *domain.User) (user *domain.User, err error) {
+    user, err = interactor.UserRepository.Update(uid, u)
     return
 }
 

@@ -70,3 +70,7 @@ func (handler *SqlHandler) Model(value interface{}) *gorm.DB {
 func (handler *SqlHandler) Preload(query string, args ...interface{}) *gorm.DB {
     return handler.Conn.Preload(query, args...)
 }
+
+func (handler *SqlHandler) Table(query string, args ...interface{}) *gorm.DB {
+    return handler.Conn.Table(query, args...)
+}

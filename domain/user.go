@@ -1,39 +1,27 @@
 package domain
 
-import "github.com/ymktmk/Shift-Backend/domain/gorm"
+import "time"
 
-// フィールドを完全に無視 `json:"-"`
 type Users []User
 
 type User struct {
-    gorm.Model
-    UID  string   `gorm:"size:28;not null;unique" json:"uid,omitempty" validate:"required"`
+    ID   uint    `gorm:"primaryKey,autoincrement" json:"id,omitempty"`
+    UID  string  `gorm:"size:28;not null;unique" json:"uid,omitempty" validate:"required"`
     Name  string `gorm:"size:255;not null" json:"name,omitempty" validate:"required"`
     Email string `gorm:"size:255;not null;unique" json:"email,omitempty" validate:"required,email"`
     CompanyID int `gorm:"not null" json:"company_id,omitempty"`
     Company Company `gorm:"foreignKey:CompanyID" json:"company,omitempty"`
+    CreatedAt *time.Time  `json:"-,omitempty"`
+    UpdatedAt *time.Time  `json:"-,omitempty"`
+	DeletedAt *time.Time  `json:"-,omitempty"`
 }
 
-type UserCreateRequest struct {
-    UID  string   `gorm:"size:28;not null;unique" json:"uid" validate:"required"`
+type UserUpdateRequest struct {
+    Name  string `json:"name" validate:"required"`
+}
+
+type UserUpdateResponse struct {
+    UID  string   `gorm:"size:28;not null;unique" json:"uid"`
     Name  string `gorm:"size:255;not null" json:"name" validate:"required"`
-    Email string `gorm:"size:255;not null;unique" json:"email" validate:"required,email"`
-    Company Company `gorm:"foreignKey:CompanyID" json:"company"`
+    Email string `gorm:"size:255;not null;unique" json:"email" validate:"email"`
 }
-
-type UserCreateResponse struct {
-    UID  string   `gorm:"size:28;not null;unique" json:"uid" validate:"required"`
-    Name  string `gorm:"size:255;not null" json:"name" validate:"required"`
-    Email string `gorm:"size:255;not null;unique" json:"email" validate:"required,email"`
-}
-
-type UserShowRequst struct {
-    
-}
-
-type UserShowResponse struct {
-
-}
-
-
-
