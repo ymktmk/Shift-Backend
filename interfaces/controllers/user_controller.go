@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -48,7 +47,6 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 	if err = c.Bind(uur); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
-	fmt.Println(uur)
 	// バリデーション
 	if err = validator.New().Struct(uur); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
