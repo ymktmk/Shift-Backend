@@ -1,16 +1,15 @@
 package domain
 
-import "time"
+import (
+	"gorm.io/gorm"
+)
 
 type Companies []Company
 
 type Company struct {
-	ID   uint `gorm:"primaryKey,autoincrement" json:"id,omitempty"`
+	gorm.Model
 	Name string `gorm:"size:255;not null" json:"name,omitempty" validate:"required"`
 	Users []User `gorm:"foreignKey:CompanyID" json:"users,omitempty"`
-	CreatedAt *time.Time  `json:"-,omitempty"`
-    UpdatedAt *time.Time  `json:"-,omitempty"`
-	DeletedAt *time.Time  `json:"-,omitempty"`
 }
 
 type CompanyRequest struct {

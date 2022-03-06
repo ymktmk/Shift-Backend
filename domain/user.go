@@ -1,19 +1,18 @@
 package domain
 
-import "time"
+import (
+	"gorm.io/gorm"
+)
 
 type Users []User
 
 type User struct {
-    ID   uint    `gorm:"primaryKey,autoincrement" json:"id,omitempty"`
+    gorm.Model
     UID  string  `gorm:"size:28;not null;unique" json:"uid,omitempty" validate:"required"`
     Name  string `gorm:"size:255;not null" json:"name,omitempty" validate:"required"`
     Email string `gorm:"size:255;not null;unique" json:"email,omitempty" validate:"required,email"`
     CompanyID int `gorm:"not null" json:"company_id,omitempty"`
     Company Company `gorm:"foreignKey:CompanyID" json:"company,omitempty"`
-    CreatedAt *time.Time  `json:"-,omitempty"`
-    UpdatedAt *time.Time  `json:"-,omitempty"`
-	DeletedAt *time.Time  `json:"-,omitempty"`
 }
 
 type UserUpdateRequest struct {
@@ -21,7 +20,7 @@ type UserUpdateRequest struct {
 }
 
 type UserUpdateResponse struct {
-    UID  string   `gorm:"size:28;not null;unique" json:"uid"`
-    Name  string `gorm:"size:255;not null" json:"name" validate:"required"`
-    Email string `gorm:"size:255;not null;unique" json:"email" validate:"email"`
+    UID  string   `json:"uid"`
+    Name  string `json:"name"`
+    Email string `json:"email"`
 }
