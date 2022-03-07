@@ -7,10 +7,8 @@ https://qiita.com/hirotakan/items/698c1f5773a3cca6193e
 Golang - EchoとGORMでClean Architecture APIを構築する
 https://qiita.com/so-heee/items/0cca93008eae635c642a
 
-## 認証
-
-Go言語でEchoを用いて認証付きWebアプリの作成
-https://qiita.com/x-color/items/24ff2491751f55e866cf
+## jwt認証
+https://gift-tech.co.jp/articles/gae-go-firebase-auth/
 
 ## DB
 
@@ -51,7 +49,7 @@ docker-compose exec app go run main.go
 
 * ユーザーを作成する
 ```
-curl -X POST http://localhost:9000/user/create \
+curl -X POST http://localhost:9000/api/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "company": "yy_company"}'
 ```

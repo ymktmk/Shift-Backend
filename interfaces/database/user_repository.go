@@ -31,15 +31,22 @@ func (repo *UserRepository) FindByUid(uid string) (user *domain.User, err error)
 	return
 }
 
-func (repo *UserRepository) FindById(userId int) (user *domain.User, err error) {
-	if err = repo.Joins("Company").Find(&user, userId).Error; err != nil {
+func (repo *UserRepository) FindByEmail(email string) (user domain.User, err error) {
+	if err = repo.Where("email=?", email).First(&user).Error; err != nil {
 		return
 	}
 	return
 }
 
-func (repo *UserRepository) FindByEmail(email string) (user domain.User, err error) {
-	if err = repo.Where("email=?", email).First(&user).Error; err != nil {
+func (repo *UserRepository) FindUsersByEmail(email string) (users domain.Users, err error) {
+	if err = repo.Where("email=?", email).Find(&users).Error; err != nil {
+		return
+	}
+	return
+}
+
+func (repo *UserRepository) FindById(userId int) (user *domain.User, err error) {
+	if err = repo.Joins("Company").Find(&user, userId).Error; err != nil {
 		return
 	}
 	return

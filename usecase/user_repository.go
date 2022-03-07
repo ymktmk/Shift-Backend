@@ -13,6 +13,7 @@ type UserRepository interface {
 	Update(uid string, u *domain.User) (user *domain.User, err error)
 	FindByUid(uid string) (user *domain.User, err error)
 	FindByEmail(email string) (user domain.User, err error)
+	FindUsersByEmail(email string) (users domain.Users, err error)
 	FindById(userId int) (user *domain.User, err error)
 	DeleteById(user domain.User) (err error)
 }

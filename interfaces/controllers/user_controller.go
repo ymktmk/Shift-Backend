@@ -7,13 +7,13 @@ import (
 	"github.com/ymktmk/Shift-Backend/domain"
 	"github.com/ymktmk/Shift-Backend/interfaces/database"
 	"github.com/ymktmk/Shift-Backend/usecase"
-	"gopkg.in/go-playground/validator.v9"
 )
 
 type UserController struct {
     Interactor usecase.UserInteractor
 }
 
+// 依存性を定義する
 func NewUserController(sqlHandler database.SqlHandler) *UserController {
     return &UserController{
         Interactor: usecase.UserInteractor{
@@ -29,13 +29,20 @@ func (controller *UserController) Create(c echo.Context) (err error) {
 	if err = c.Bind(ucr); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
-	if err = validator.New().Struct(ucr); err != nil {
+	if err = c.Validate(ucr); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	// 同じEmailの人がいないか確認する && UIDも
+	var users domain.Users
+	users, err = controller.Interactor.ExistUserByEmail(ucr.Email)
+	if len(users) != 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "入力されたメールアドレスは既に登録されています。")
 	}
 	// DTOをUserのEntityに変換
 	u := &domain.User{
 		UID: ucr.UID, 
 		Name: ucr.UserName, 
+		Email: ucr.Email,
 		Company: domain.Company{
 			Name: ucr.CompanyName,
 		},
@@ -56,7 +63,7 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	// バリデーション
-	if err = validator.New().Struct(uur); err != nil {
+	if err = c.Validate(uur); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	// DTOをUserのEntityに変換

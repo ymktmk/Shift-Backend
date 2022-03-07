@@ -7,20 +7,20 @@
 ## 正しいパターン
 
 ```
-curl -X POST http://localhost:9000/user/create \
+curl -X POST http://localhost:9000/api/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "company": {"name": "yy_company"}}'
 ```
 
 
 ```
-curl -X POST http://localhost:9000/user/create \
+curl -X POST http://localhost:9000/api/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxyy","name": "tomoki", "email": "yy@gmail.com", "company": {"name": "yy_company"}}'
 ```
 
 ```
-curl -X POST http://localhost:9000/user/create \
+curl -X POST http://localhost:9000/api/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxzz","name": "tomoki", "email": "zz@gmail.com", "company": {"name": "yy_company"}}'
 ```
@@ -28,7 +28,7 @@ curl -X POST http://localhost:9000/user/create \
 ## uidなし
 
 ```
-curl -X POST http://localhost:9000/user/create \
+curl -X POST http://localhost:9000/api/user/create \
 -H 'Content-Type: application/json' \
 -d '{"name": "tomoki", "email": "tt@gmail.com", "company": {"name": "yy_company"}}'
 ```
@@ -36,7 +36,7 @@ curl -X POST http://localhost:9000/user/create \
 ## 不正email
 
 ```
-curl -X POST http://localhost:9000/user/create \
+curl -X POST http://localhost:9000/api/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "ttaidewdwem", "company": {"name": "yy_company"}}'
 ```
@@ -44,7 +44,7 @@ curl -X POST http://localhost:9000/user/create \
 ## nameなし
 
 ```
-curl -X POST http://localhost:9000/user/create \
+curl -X POST http://localhost:9000/api/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxzz", "email": "zz@gmail.com", "company": {"name": "yy_company"}}'
 ```
@@ -52,7 +52,7 @@ curl -X POST http://localhost:9000/user/create \
 ## companyなし(パターン1)
 
 ```
-curl -X POST http://localhost:9000/user/create \
+curl -X POST http://localhost:9000/api/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxzz","name": "tomoki", "email": "zz@gmail.com", "company": {}}'
 ```
@@ -60,7 +60,7 @@ curl -X POST http://localhost:9000/user/create \
 ## comapanyなし(パターン2)
 
 ```
-curl -X POST http://localhost:9000/user/create \
+curl -X POST http://localhost:9000/api/user/create \
 -H 'Content-Type: application/json' \
 -d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxee","name": "tomoki", "email": "rrr@gmail.com"}'
 ```

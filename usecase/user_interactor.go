@@ -37,3 +37,8 @@ func (interactor *UserInteractor) UserByEmail(email string) (user domain.User, e
     user, err = interactor.UserRepository.FindByEmail(email)
     return
 }
+
+func (interactor *UserInteractor) ExistUserByEmail(email string) (users domain.Users, err error) {
+    users, err = interactor.UserRepository.FindUsersByEmail(email)
+    return
+}
