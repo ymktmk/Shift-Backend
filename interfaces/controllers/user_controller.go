@@ -25,12 +25,20 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
 }
 
 func (controller *UserController) Create(c echo.Context) (err error) {
-	u := new(domain.User)
-	if err = c.Bind(u); err != nil {
+	ucr := new(domain.UserCreateRequest)
+	if err = c.Bind(ucr); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
-	if err = validator.New().Struct(u); err != nil {
+	if err = validator.New().Struct(ucr); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+	// DTOをUserのEntityに変換
+	u := &domain.User{
+		UID: ucr.UID, 
+		Name: ucr.UserName, 
+		Company: domain.Company{
+			Name: ucr.CompanyName,
+		},
 	}
 	// 同じメールアドレス、uidでerr返ってくる → 同じものを挿入したときidは進む
 	user, err := controller.Interactor.Add(u)
@@ -52,8 +60,8 @@ func (controller *UserController) Update(c echo.Context) (err error) {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	// DTOをUserのEntityに変換
-	u := domain.User{Name: uur.Name}
-	user, err := controller.Interactor.Update(uid, &u)
+	u := &domain.User{Name: uur.UserName}
+	user, err := controller.Interactor.Update(uid, u)
     if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}

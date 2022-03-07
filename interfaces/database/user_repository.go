@@ -1,8 +1,6 @@
 package database
 
 import (
-	"fmt"
-
 	"github.com/ymktmk/Shift-Backend/domain"
 )
 
@@ -23,7 +21,6 @@ func (repo *UserRepository) Update(uid string, u *domain.User) (user *domain.Use
 		return
 	}
 	user = u
-	fmt.Println(user)
 	return
 }
 

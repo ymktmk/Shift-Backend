@@ -53,7 +53,7 @@ docker-compose exec app go run main.go
 ```
 curl -X POST http://localhost:9000/user/create \
 -H 'Content-Type: application/json' \
--d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "company": {"name": "yy_company"}}'
+-d '{"uid":"xxxxxxxxxxxxxxxxxxxxxxxxxxxx","name": "tomoki", "email": "tt@gmail.com", "company": "yy_company"}'
 ```
 
 * リクエストを送信した人のユーザー情報

@@ -18,7 +18,8 @@ func (interactor *UserInteractor) Add(u *domain.User) (user *domain.User, err er
 }
 
 func (interactor *UserInteractor) Update(uid string, u *domain.User) (user *domain.User, err error) {
-    user, err = interactor.UserRepository.Update(uid, u)
+    u, err = interactor.UserRepository.Update(uid, u)
+    user, err = interactor.UserRepository.FindByUid(uid)
     return
 }
 

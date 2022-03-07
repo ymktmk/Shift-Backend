@@ -1,8 +1,6 @@
 package domain
 
-import (
-	"gorm.io/gorm"
-)
+import "github.com/ymktmk/Shift-Backend/domain/gorm"
 
 type Users []User
 
@@ -15,12 +13,19 @@ type User struct {
     Company Company `gorm:"foreignKey:CompanyID" json:"company,omitempty"`
 }
 
+type UserCreateRequest struct {
+    UID  string  `json:"uid" validate:"required"`
+    UserName  string `json:"name" validate:"required"`
+    Email string `json:"email" validate:"required,email"`
+    CompanyName string `json:"company" validate:"required"` 
+}
+
 type UserUpdateRequest struct {
-    Name  string `json:"name" validate:"required"`
+    UserName  string `json:"name" validate:"required"`
 }
 
 type UserUpdateResponse struct {
     UID  string   `json:"uid"`
-    Name  string `json:"name"`
+    UserName  string `json:"name"`
     Email string `json:"email"`
 }
