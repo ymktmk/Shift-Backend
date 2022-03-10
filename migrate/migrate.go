@@ -35,11 +35,13 @@ func main() {
 	conn.DropTable(
 		&domain.User{}, 
 		&domain.Company{},
+		&domain.Shift{},
 	)
 	// conn.AutoMigrate(&domain.Company{})
     conn.AutoMigrate(
 		&domain.User{},
 		&domain.Company{},
+		&domain.Shift{},
 	)
 	// .AddForeignKey("company_id", "campanies(id)", "RESTRICT", "RESTRICT")
 }

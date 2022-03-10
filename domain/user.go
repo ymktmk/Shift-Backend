@@ -11,6 +11,7 @@ type User struct {
     Email string `gorm:"size:255;not null;unique" json:"email,omitempty" validate:"required,email"`
     CompanyID int `gorm:"not null" json:"company_id,omitempty"`
     Company Company `gorm:"foreignKey:CompanyID" json:"company,omitempty"`
+    Shifts []Shift `gorm:"foreignKey:UserID" json:"shift,omitempty"`
 }
 
 type UserCreateRequest struct {

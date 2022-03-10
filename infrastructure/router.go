@@ -28,6 +28,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 func Routing() *echo.Echo {
 	userController := controllers.NewUserController(NewSqlHandler())
 	companyController := controllers.NewCompanyController(NewSqlHandler())
+	shiftController := controllers.NewShiftController(NewSqlHandler())
 	e := echo.New()
 	e.Validator = &CustomValidator{validator: validator.New()}
 	// 認証なしapi
@@ -38,5 +39,7 @@ func Routing() *echo.Echo {
 	g.GET("/user", userController.Show)
 	g.PUT("/user/update", userController.Update)
 	g.GET("/company/users", companyController.Show)
+	// shift
+	g.GET("/shift", shiftController.Print)
 	return e
 }
