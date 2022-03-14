@@ -13,23 +13,23 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-    user := os.Getenv("MYSQL_USER")
+      user := os.Getenv("MYSQL_USER")
 	password := os.Getenv("MYSQL_PASSWORD")
 	protcol := "tcp(" + os.Getenv("MYSQL_HOST") + ":" + os.Getenv("MYSQL_PORT") + ")"
 	name := os.Getenv("MYSQL_DATABASE") + "?charset=utf8&parseTime=true&loc=Local"
 	connect := user + ":" + password + "@" + protcol + "/" + name
-    conn, err := gorm.Open("mysql", connect)
+      conn, err := gorm.Open("mysql", connect)
 	if err != nil {
-        panic(err)
-    }
-    defer func() {
-        if err := conn.Close(); err != nil {
-            panic(err)
-        }
-    }()
-    conn.LogMode(true)
-    if err := conn.DB().Ping(); err != nil {
-        panic(err)
+		panic(err)
+	}
+	defer func() {
+		if err := conn.Close(); err != nil {
+			panic(err)
+		}
+	}()
+	conn.LogMode(true)
+	if err := conn.DB().Ping(); err != nil {
+		panic(err)
 	}
 	// drop & migration
 	conn.DropTable(
@@ -38,10 +38,10 @@ func main() {
 		&domain.Shift{},
 	)
 	// conn.AutoMigrate(&domain.Company{})
-    conn.AutoMigrate(
+      conn.AutoMigrate(
 		&domain.User{},
 		&domain.Company{},
-		&domain.Shift{},
+		// &domain.Shift{},
 	)
 	// .AddForeignKey("company_id", "campanies(id)", "RESTRICT", "RESTRICT")
 }

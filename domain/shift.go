@@ -2,7 +2,6 @@ package domain
 
 import (
 	"time"
-
 	"github.com/ymktmk/Shift-Backend/domain/gorm"
 )
 
@@ -15,7 +14,7 @@ type Shift struct {
 }
 
 type ShiftCreateRequest struct {
-    Date *time.Time `json:"date,omitempty"`
+	Date *time.Time `json:"date,omitempty"`
 	Vacation bool `json:"vacation,omitempty"`
 	Require int `json:"require,omitempty"`
 }
