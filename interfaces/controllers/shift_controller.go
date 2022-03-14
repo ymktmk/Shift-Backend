@@ -23,6 +23,13 @@ func NewShiftController(sqlHandler database.SqlHandler) *ShiftController {
     }
 }
 
-func (controller *ShiftController) Print(c echo.Context) (err error) {
-	return c.JSON(http.StatusOK, "Hello")
+// シフトを作成する
+func (controller *ShiftController) Create(c echo.Context) (err error) {
+	// uidを取得
+	uid := c.Get("uid").(string)
+	// userを取得する
+	user, err := controller.Interactor.UserByUid(uid)
+	
+
+	return c.JSON(http.StatusOK, user)
 }

@@ -10,18 +10,18 @@ import (
 )
 
 type UserController struct {
-    Interactor usecase.UserInteractor
+	Interactor usecase.UserInteractor
 }
 
 // 依存性を定義する
 func NewUserController(sqlHandler database.SqlHandler) *UserController {
-    return &UserController{
-        Interactor: usecase.UserInteractor{
-            UserRepository: &database.UserRepository{
-                SqlHandler: sqlHandler,
-            },
-        },
-    }
+	return &UserController{
+		Interactor: usecase.UserInteractor{
+			UserRepository: &database.UserRepository{
+			SqlHandler: sqlHandler,
+			},
+		},
+	}
 }
 
 func (controller *UserController) Create(c echo.Context) (err error) {

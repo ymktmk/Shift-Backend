@@ -34,12 +34,12 @@ func Routing() *echo.Echo {
 	// 認証なしapi
 	e.POST("/api/user/create", userController.Create)
 	// 認証つきapi
-    g := e.Group("/api")
+	g := e.Group("/api")
 	g.Use(verifyFirebaseToken)
 	g.GET("/user", userController.Show)
 	g.PUT("/user/update", userController.Update)
 	g.GET("/company/users", companyController.Show)
 	// shift
-	g.GET("/shift", shiftController.Print)
+	g.POST("/shift/create", shiftController.Create)
 	return e
 }

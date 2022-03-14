@@ -24,8 +24,7 @@ func NewCompanyController(sqlHandler database.SqlHandler) *CompanyController {
 
 // 会社の人を取得する
 func (controller *CompanyController) Show(c echo.Context) (err error) {
-    i := c.Get("uid")
-    uid := i.(string)
+    uid := c.Get("uid").(string)
     user, err := controller.Interactor.UserByUid(uid)
     if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())

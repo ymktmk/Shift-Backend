@@ -5,7 +5,7 @@ import (
 )
 
 type UserRepository struct {
-    SqlHandler
+	SqlHandler
 }
 
 func (repo *UserRepository) Store(u *domain.User) (user *domain.User, err error) {

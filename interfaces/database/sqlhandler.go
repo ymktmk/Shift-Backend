@@ -1,5 +1,3 @@
-// 外側のレイヤーから持ってくる
-// 登録しておく
 package database
 
 import "gorm.io/gorm"
